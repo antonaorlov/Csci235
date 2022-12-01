@@ -110,7 +110,60 @@ void linkedlist<itemType>::clear(){
 	size=0;
 }
 
+//removeifContains
+template<class T>
+int Network::removeIfContains(const string & word){
+	int count=0;
+	Node<Post*>* nodes=feed.getHeadPtr();
+	while(nodes!=nullptr){
+		size_t title= nodes->getItem()->getTitle().find(word);
+		size_t body= nodes->getItem()->getBody().find(word);
+		if(title!=string::npos || body!=string::npos){
+			int accoutnIndex=getIndexOf(nodes->getItem()->getUsername());
+			array[accountIndex]->removePost(nodes->getItem());
+			count++;
+		}
+		nodes=nodes->getNext();
+	}
+	return count;
+}
 
+void Account::updatePost(Post* post, string newtitle, string newbody){
+	  Network<Account> *point_N = nullptr; // Network pointer to Account
+	if(posts.getIndexOf(post)<0){
+		if(newtitle!=""){
+			post->setTitle(mewtitle);
+		}
+		if(newbody!=""){
+			post->setBody(newbody);
+		}
+		post->setTimeStamp();
+		points.moveItemToTop(Post); //move post to top of list
+		point_N->updateFeedOfPost(post); //update Post to LinkedList
+	}
+}
+
+bool Account::removePost(Post* const post){
+	  Network<Account> *point_N = nullptr; // Network pointer to Account
+	if(posts.getIndexOf(post)>-1){
+		posts.remove(posts.getIndeOf(post));
+		point_N->FeedToRemove(post);
+		return true;
+	}
+	return false;
+}
+
+
+template<class T>
+void Network<T>::FeedToRemove(Post* post) {
+    feed.remove(feed.getIndexOf(post));  //remove post of feed linkedlist
+}
+
+//Helper Function 2
+template<class T>
+void Network<T>::updateFeedOfPost(Post* post) {
+   feed.moveItemToTop(post); //move post obkect to front of feed linked list
+}
 
 template<typename ItemType>
 Node<ItemType>* LinkedList<ItemType>::getHeadPtr() const {
