@@ -4,6 +4,31 @@
 using namespace std;
 
 
+
+
+Stack Big O notation
+Size: O(1)
+isEmpty: O(1)
+push: O(1)
+pop: O(1)
+top: O(1)
+allocate new array: O(1)
+copy elements in new array: O(n)
+delete old array: O(1)
+
+Vector Growth by 1, O(N^2) over time (n pushes)
+Vector Growth by 2, push takes half the steps O(N^2)
+Vector Growth doubles the size, O(1)
+
+Array: O(1) for push pop, size is bounded
+Vector: Size not bounded, 
+
+
+
+
+
+
+
 void display_stack(stack<int> st);
 void printQueue(queue<int> queue){
     while(!queue.empty()){
