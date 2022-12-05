@@ -1,0 +1,154 @@
+	Node()
+
+next_=nullptr; //node
+
+	Node(T& an_item)
+an_item=0;
+
+	Node(const T& an_item, Node<T>* next_node)
+item_=an_iten;
+next_=next_node;
+
+	void SetItem(const T& an_item)
+item_=an_item
+	
+	void setNext(Node<T>* next_node)
+next->next_node;
+
+	
+	LinkedBag() O(1)
+item_count_=0;
+head_ptr_=nullptr;
+
+	~inkedBag() O(n) worst case due to memory
+
+	add() O(1)
+check if lsit not emppty !isempty()
+make new node 
+new node->setItem(new_entry)
+newnode point to head newnode->SetNext(head_ptr)
+head=newnode
+count++;
+	
+	std::vector<F> toVector() const O(n)
+make vector 	std::vector<T> bagcontents
+make new node pointing at head
+newnode=head;  	Node<T>* cur_ptr=head_ptr_;
+while new node not last in list
+newnode_->getItem() pushes to vector
+new node points to next node
+new_node=new_node->getNext()
+
+	getPointerTo(const T& an_entry) const O(n)
+make new node
+node point to head
+newnode=head
+while new node not in last list loop
+newnode_->getItem()
+check if equals to an_entry
+return the newnode of the item
+
+	
+//help with remove, clear
+
+	bool LinkedBag<T>::remove(const T& an_entry)  O(n)
+Node<T>* entry = getPointerTo(an_entry); gives where node is for an_entry
+while entry not at last
+entry set item of head get item      	entry_ptr->setItem(head_ptr_->getItem());
+make new node Delete equals to head       Node<T>* node_delete=head_ptr_;
+head points to next node 			head_ptr_=head_ptr_->getNext();
+node delete setNext(nullptr)			node_delete->setNext(nullPtr);
+delete nodedelete					delete node_delete;
+nodedelete=nullptr				node_delete=nullptr;
+count--;
+
+
+	void clear()  O(n)
+make new delete node point to head		Node<T>* node_delete=head_ptr_;
+whiel head not last
+head gerts next pointer			      head_ptr_=head_ptr_->getNext();
+new delete node setNext(nullptr)		node_delete->SetNext(nullptr);
+delete node delete				delete node_delete;
+node delete=headptr				node_delete=head_ptr_;
+itemcount=0
+
+	void swap(vector<string>& x, vector<string>& y)
+{
+ vector<string> temp = std::move(x);
+ x = std::move(y);
+ y = std::move(temp);
+}
+
+	bool List<T>::insert(size_t position, const T& new_element){
+
+make new node containing new element 	Node<T>* newNode=new Node<T>(new_element)
+get node location of position			Node<T>* pos_ptr=getPointerTo(position)
+
+//if first is the only one in list
+    if (first==nullptr){
+       new node setNext(nullptr) only one in list
+	 new node setPrevious(nullptr) only one in list
+	 first->setPrevious(newNode)
+	 first=newnode
+    }
+
+    //if po_ptr is first node
+    else if(pos_ptr=first){
+      new node SetNext(first)
+	new node SetPrevious(nullptr)
+	first->setPrevious(newnide)
+	first=new node
+    }
+
+    else if(pos_ptr=nullptr){
+       new node_>setNext(nullptr) last one in list
+	 new node->setPrevious(last)
+	 last->setNext(newnode)
+	 last=new node;
+    }
+
+    else{
+	 newnode=setNext(pos_ptr)
+	 newnode->setPrevious(pos_ptr_>getPrevoius())
+	 posptr->getPrevious()->setNext(newnode)
+	 posptr->setPrevious(newnode)
+    }
+
+
+	linear search O(n)
+for loop see where item is
+	binary search
+two variables low=0, high=last item in vector
+loop whilie(low<high)
+middle variable= (high+low)/2
+if item >middle place
+increment low=mid+1
+else item <middle place
+decrement high=mid-1
+return mid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
