@@ -114,10 +114,43 @@ get node location of position			Node<T>* pos_ptr=getPointerTo(position)
 	 posptr->setPrevious(newnode)
     }
 
+bool List <T>::remove(size_t position)
+	
+make node pos_ptr equal to getPointerTo(position)
+if (pos_ptr == first_) { 	//if pos node equal to first node
+        // Remove first node
+        first_ = pos_ptr -> getNext();	//first equals to pos next node
+        first_ -> setPrevious(nullptr);	//first setprevoud nullptr becuase first node
+        // Return node to the system	
+        pos_ptr -> setNext(nullptr);	//pos ptr setnext nullptr deleting node
+        delete pos_ptr;			//delete node
+        pos_ptr = nullptr;		//pospotr=nullptr
+      }
+else if (pos_ptr == last_) {
+        //remove last_ node
+        last_ = pos_ptr -> getPrevious();
+        last_ -> setNext(nullptr);
+        // Return node to the system
+        pos_ptr -> setPrevious(nullptr);
+        delete pos_ptr;
+        pos_ptr = nullptr;
+} else {
+        //Remove from the middle
+        pos_ptr -> getPrevious() -> setNext(pos_ptr -> getNext());
+        pos_ptr -> getNext() -> setPrevious(pos_ptr -> getPrevious());
+        // Return node to the system
+        pos_ptr -> setNext(nullptr);
+        pos_ptr -> setPrevious(nullptr);
+        delete pos_ptr;
+        pos_ptr = nullptr;
+
+virtual void ConvertToPixelArrat() const==0 polymprlhism pure virtual function
+
 
 	linear search O(n)
 for loop see where item is
-	binary search
+
+	binary search O(log(n))
 two variables low=0, high=last item in vector
 loop whilie(low<high)
 middle variable= (high+low)/2
@@ -127,15 +160,49 @@ else item <middle place
 decrement high=mid-1
 return mid
 
+	Selection sort void selectionSort(const std::vector<Comparable>& the_array)
+int size = the_array.size();
+for (int first = 0; first < size; first++)
+int smallest_index = findIndexOfSmallest(the_array, first, size);
+std::swap(the_array[smallest_index], the_array[first]);	
 
 
+	//Bubble Sort run time is O(n2) Worst Case. O(n) best Case
+	void bubbleSort(const std::vector<Comparable>& the_array)
+	
+int size = the_array.size();
+bool swapped = true; // Assume unsorted
+int pass = 1;
+while (swapped && (pass < size))
+{
+swapped = false;
+for (int index = 0; index < size - pass; index++)
+{
+if (the_array[index] > the_array[index+1])
+{
+std::swap(the_array[index], the_array[index+1]); //swap
+swapped = true; // indicates array not yet sorted
+}// end if
+} // end for
+pass++;
+} // end while
+} // end bubbleSort
 
 
-
-
-
-
-
+	Insertion sort O(n2) Worst Case. O(n) best case
+void insertionSort(const std::vector<Comparable>& the_array)
+{
+int size = the_array.size();
+for (int unsorted = 1; unsorted < size; unsorted++)
+{
+int current = unsorted; //the index of the item currently being inserted
+while ((current > 0) && (the_array[current - 1] > the_array[current]))
+{
+std::swap(the_array[current], the_array[current - 1]); // swap
+current--;
+} // end while
+} // end for
+} // end insertionSort
 
 
 
