@@ -205,6 +205,156 @@ current--;
 } // end insertionSort
 
 
+	void recursiveReverse(string &str)
+make stack
+loop through string
+push elements itno stack
+loop through string
+elemnts equal to top of stack
+pop elements
+
+	Stack
+for(char ch : st)
+{
+if ch is an open parenthesis character
+push it on the stack
+else if ch is a close parenthesis character
+if it matches the top of the stack
+pop the stack
+else
+return unbalanced
+// else it is not a parenthesis
+}
+if stack is empty
+return balanced
+else
+return unbalanced
+
+	LinkedStack<ItemType>::~LinkedStack()
+while not empty
+pop stack
+
+	 LinkedStack<ItemType>::isEmpty()
+return topPtr==nullptr
+
+	LinkedStack<ItemType>::push(const ItemType& newItem)
+make new node equal to node with new Itemtype, topPtr 	Node <T>*newnode= new node<T>(newItem,TopPtr) 
+topPointer of stack equals to node			topPointer=newnode
+new node becomes nullptr				newnode=nullptr
+
+	LinkedStack<ItemType>::pop()
+if stack not empty			!isEmpty()
+make delete node equal to topNode	Node<T>* deleteNode=topNode
+topNode points to next Node		topNode=topNode->getNext()
+Delete Node points to nullptr		deleteNode->getNext(nullptr)
+delete node				delete Node
+node = nulllptr				Node=nullptr
+
+
+	Queue  bool LinkedQueue<ItemType>::enqueue(const ItemType& newEntry)
+make new node have newEntry		Node<T>* newNode=new Node<T>(newEntry)
+if not empty queue			!isEmpty()
+frontPointer=newNode			frontPtr=newNode
+else					Else
+backPointer->setNext(newnodePtr)	backPointer_>setNext(newNodePtr)
+backPointer=newNodePtr			backPointer=newNodePtr
+
+	bool LinkedQueue<ItemType>::dequeue()
+if not empty				!isEmpty()
+delete node equals frotn Node		Node<T>* NodeDelete=front Node
+front node gets next node		frontNode->getNext()
+node delete points to nullptr		NodeDelete_>setNext(Nullptr)
+delete node delete			delete NodeDelete
+node delete=nullptr			NodeDelete=nullptr
+
+
+	Trees	Search(bs_tree, item)   Worst Case O(H)
+if(bs_tree is empty)
+item not found
+else if item ==root
+return root
+else if item<root
+search(T L, item)
+else
+Search(T R, item)
+
+	add(bs_tree, item) Worst Case O(H)
+if(bs_tree,item)
+item=root
+else if item<root
+add(T L, item)
+else
+add(T R, item)
+
+	inorder(bs_tree) Worst Case O(H)
+if(bs_tree not empty)
+inorder(T L)
+visit Root
+inOrder(T R)
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
