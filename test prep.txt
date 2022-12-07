@@ -279,7 +279,7 @@ else
 Search(T R, item)
 
 	add(bs_tree, item) Worst Case O(H)
-if(bs_tree,item)
+if bs_tree is empty
 item=root
 else if item<root
 add(T L, item)
@@ -288,16 +288,66 @@ add(T R, item)
 
 	inorder(bs_tree) Worst Case O(H)
 if(bs_tree not empty)
-inorder(T L)
+inorder(T L)		inorder(root->left)
 visit Root
-inOrder(T R)
+inOrder(T R)		inoreder(root->right)
 		
+	PreOrder(bs_tree)
+Visit Root Tree
+PreOreder(T L)		perOrder(root->left)
+PreOreder(T R)		preOrder(root->right)
 
+	PostOrder(bs_tree)
+PostOrder(T L)		PostOrder(root->left)
+PostOrder(T R)		PostOrder(root->right)
+Visit Root Node
 
+	Search Operation of BST
+if Root=NULL
+	return NULL
+if number==root->data
+	return root->data
+if number < root->data
+	return search(root->left)
+if number > root->data
+	return search(root->right)
 
+	Insert Operation of BST
+if Root=NULL
+	return CreateNode(data)
+if(data < node->data)
+	node->left = insert(node->left,data)
+else if(data > node->data)
+	node->right = insert(node->right,data)
+return node
 
+	Deleting node three ways
+	Struct Node* deleteNode(struct Node *root, int key)
+return root if tree is empty		if(root=NULL)
+//find Node to be deleted
+if data < root->data
+root->left = deleteNode(root->left,data)
+else if key > root->key
+root->right = deleteNode(root->right,data)
 
+	Else if node had 1 child or no child
+if(root->left==NULL)
+struct node *temp=root->right
+free(root)
+return temp
+else if root->right == NULL
+struct node *temp= root->left
+free(root)
+return temp
 
+	if node has 2 children inOrder succession the biggest node after teh current one
+struct node *temp = minValueNode(root->right);
+
+// Place the inorder successor in position of the node to be deleted
+root->key = temp->key;
+// Delete the inorder successor
+root->right = deleteNode(root->right, temp->key)
+Delete Node
 
 
 
