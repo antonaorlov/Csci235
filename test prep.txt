@@ -349,12 +349,165 @@ root->key = temp->key;
 root->right = deleteNode(root->right, temp->key)
 Delete Node
 
+	BST<T>::BST(const BST<T>& tree) Copy Constructor
+rootprt = copyTree(tree.root_prt)
 
+	BST<T>::copyTree(const std::shared_ptr<BinaryNode<T>> old_tree_root_ptr) const
+make new shared Pointer			std::shared_ptr<BinaryNode<T>> new_tree_ptr
+if old tree root not null		if(oldtree !=nullptr)
+copy node for new tree			
+new_tree=std::make_shared<BinaryNode<T>>(OldTreeRoot->getItem(), nullptr, nullptr)
+new_tree->setLeftChildPtr(copyTree(oldTree->getLeftChild()))
+new_tree->setRightChildPrt(copyTree(oldTree->getRightChild()))
+return tree
 
+	BST<T>::BST(const BST<T>&& tree) move constructor
+make rootpointer = tree pointer		root_prt=tree.rootPrt
+tree pointer.reset()
 
+	BST<T>::destroyTree(std::shared_ptr<BinaryNode<T>> sub_tree_ptr)
+if subtree not nullpointer
+destroyTree(subTree_>getLeftChildPtr())
+destroyTree(subTreeptr->getRighCHildPrt())
+subtree.reset()  // same as sub_tree_ptr = nullptr for smart pointers
 
+	void BST<T>::clear()
+call destroyTree(root_ptr)
 
+	 BST<T>::getHeight() const
+return getHeightHelper(rootPrt)
 
+	int BST<T>::getHeightHelper(std::shared_ptr<BinaryNode<T>> sub_tree_ptr) const
+if subtree nullptr
+return 0
+else 
+1 + std::max(getHeightHelper(subtreePtr->getLeftChild()), getHeightHelper(subtreePtr->getRightChild()))
+	
+	void BST<T>::add(const T& new_item)
+auto newnode = std::make_shared<BinaryNode<T>>(new_item)
+placeNode(rootptr, newnodePtr)
+	
+	auto BST<T>::placeNode(std::shared_ptr<BinaryNode<T>> subtree_ptr,std::shared_ptr<BinaryNode<T>> new_node_ptr)	
+if subtree nullptr return new node
+else
+if subtreeptr->getItem() > newNodeptr->getItem()
+subtreePtr->setLeftChildPtr(PlaceNode(subTree->getLeftChildPtr(), newNodePtr))
+else 
+subtree_ptr->setRightChildPtr(placeNode(subtree_ptr->getRightChildPtr(),new_node_ptr));
+	
+	bool BST<T>::remove(const T& target)
+root_ptr_ = removeValue(root_ptr_, target, is_successful);
+	
+	auto BST<T>::removeValue(std::shared_ptr<BinaryNode<T>>subtree_ptr, const T target, bool& success)
+if (subtree_ptr == nullptr)
+{
+// Not found here
+success = false;
+return subtree_ptr;
+}
+if (subtree_ptr->getItem() == target)
+{
+// Item is in the root of this subtree
+subtree_ptr = removeNode(subtree_ptr);
+success = true;
+return subtree_ptr;
+}
+else
+{
+if (subtree_ptr->getItem() > target)
+{
+// Search the left subtree
+subtree_ptr->setLeftChildPtr(removeValue(subtree_ptr->getLeftChildPtr(), target, success));
+}
+else
+{
+// Search the right subtree
+subtree_ptr->setRightChildPtr(removeValue(subtree_ptr->getRightChildPtr(), target, success));
+}
+return subtree_ptr;
+} // end if
+} // end removeValue
+	
+	auto BST<T>::removeNode(std::shared_ptr<BinaryNode<T>> node_ptr)
+if nodeptr is leaf
+nodeptr.reset()
+return node
+if node has 1 right child
+nodeptr->getLeftChild()==nullptr
+return nodeptr->getRightChildPtr
+
+if node has 1 left child
+nodeptr->getRightChild()==nullptr
+return nodeptr->getLeftChildPtr
+
+if node has 2 chidren
+T newnode // new item
+nodeptr->setRightChildPtr(removeLeftMostNode(nodePtr->getRightChildPtr(),newnode))
+nodeptr->setItem(newnode)	
+return nodeptr
+	
+	auto BST<T>::removeLeftmostNode(std::shared_ptr<BinaryNode<T>>nodePtr, T& inorderSuccessor)
+if nodeptr->getLeftChildPtr()==nullptr
+inorderSuccessor-nodeptr->getitem()
+return removeNode(nodePtr)
+else
+nodePtr->setLeftChildPtr(removeLeftmostNode(nodePtr->getLeftChildptr(), inorderSuccessor))
+return nodePtr
+	
+	void BST<T>::inorder(Visitor<T>& visit,
+std::shared_ptr<BinaryNode<T>> tree_ptr) const
+{
+if (tree_ptr != nullptr)
+{
+inorder(visit, tree_ptr->getLeftChildPtr());
+T the_item = tree_ptr->getItem();
+visit(the_item);
+inorder(visit, tree_ptr->getRightChildPtr());
+} // end if
+} // end inorder
+	
+	shared pointers
+shared_ptr
+std::shared_ptr<Song> song_ptr1; //declaration only automatically set to nullptr
+auto song_ptr2=std::make_shared<Song>();// equivalent to Song* ptr = new Song()
+cout<<songprt2->getTitle()
+
+	weak pointers
+weak_prt
+auto shared_prt=std::make_shared<Song>()
+std::weak_prt<Song> weakSong=shared_prt
+auto weaksong1=weaksong
+
+	uniqueprt
+auto songprt = makeunique<Song>();
+std::uniquePrt<Song> anotherSong
+anotherSong=songprt
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 
 
 
