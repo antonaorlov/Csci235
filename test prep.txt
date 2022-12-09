@@ -505,11 +505,39 @@ call getHeightHelper(rootPtr)
 if subtreeptr nullptr return 0
 else
 return 1+std::max(getHeightHelper(sub_tree_ptr->getLeftChild()), getHeightHelper(sub_tree_ptr->getRightChildPtr()))
-	
 
-	
-	
-	
+	placeNode(std::shared_ptr<BinaryNode<T>> subtree_ptr, std::shared_ptr<BinaryNode<T>> new_node_ptr)
+if subtree nullptr 
+return newnode
+else
+if subtree getItem()  > newnode ->getItem()
+subtree->setLeftChild(placeNode(subtree->getLeftChildPtr()), newnodeptr)
+else
+subtree->setRightChild(placeNode(subtree_>GetRightCHildPtr()), newNodeptr)
+return subtreeptr
+
+	removeValue(const T& target)
+if subtree->getItem() ==target
+subtreeptr=removeNode(subtreeptr) //found item remove it
+else
+if subtrr->getItem > target //search left subtree
+subtree->setLeftChild(removeValue(subtreeptr->getLeftCHildpTr(), target))
+else
+subtreeptr->setRightCHildPtr(removeValue(subtreeptr->getRightCHildPtr(), target))
+
+	removeNode(std::shared_ptr<BinaryNode<T>> node_ptr)
+if node->isLeaf() //Node is a leaf, its deleted
+nodeptr.reset()
+else if Node->GetLeftChildPtr==nullptr  //if has right child
+retrn nodeptr->getRightChildptr()
+else if Node->GEtRightChildPtr == nullptr
+return nodeptr->getLeftChild()
+else //had 2 childs
+T newNode
+nodeptr->setRightCHild(removeLeftMostNode(nodeptr-.getRightCHildPtr()),newnodevalue)
+nodeptr->setItem(newnodevalue)
+return node
+
 	
 	
 	
