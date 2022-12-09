@@ -483,7 +483,30 @@ auto songprt = makeunique<Song>();
 std::uniquePrt<Song> anotherSong
 anotherSong=songprt
 	
+	BinaryNode(const T& an_item, std::shared_ptr<BinaryNode<T>> left,std::shared_ptr<BinaryNode<T>> right) //constructor
+left child equals to left shared ptr
+right child equals to right shared ptr
+
+	BinaryNode SetLeftChild(std::shared_ptr<BinaryNode<T> left_ptr)
+left child equals leftptr
+
+	DestroyTree(std::shared_ptr<BinaryNode<T> subtreeptr)
+if subtreeptr!=nullptr
+destroyTree(subtreeptr->getLeftChildPtr())     calling method recursive to get rid of left child
+destroyTree(subtreeptr->getRightChildPtr()     calling method recursive to get rid of right child
+subtreeptr.reset()			       nullpointer for subtreeptr
 	
+	clear() calls DestroyTree
+
+	getHeight() const
+call getHeightHelper(rootPtr)
+
+	getHeightHelper(std::shared_ptr<BinaryNode<T>> sub_tree_ptr)
+if subtreeptr nullptr return 0
+else
+return 1+std::max(getHeightHelper(sub_tree_ptr->getLeftChild()), getHeightHelper(sub_tree_ptr->getRightChildPtr()))
+	
+
 	
 	
 	
