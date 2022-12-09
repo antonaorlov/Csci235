@@ -1510,23 +1510,246 @@ another_song_ptr = song_ptr;
 //ERROR!!! copy assignment not permitted with unique_ptr
 
 
+    BinaryNode
+#ifndef BinaryNode_H_
+#define BinaryNode_H_
+#include <memory>
+template<class T>
+class BinaryNode
+{
+public:
+BinaryNode();
+BinaryNode(const T& an_item, std::shared_ptr<BinaryNode<T>> left,
+std::shared_ptr<BinaryNode<T>> right);
+void setItem(const T& an_item);
+T getItem() const;
+bool isLeaf() const;
+auto getLeftChildPtr() const;
+auto getRightChildPtr() const;
+void setLeftChildPtr(std::shared_ptr<BinaryNode<T>> left_ptr);
+void setRightChildPtr(std::shared_ptr<BinaryNode<T>> right_ptr);
+private:
+T item_; // Data portion
+std::shared_ptr<BinaryNode<T>> left_; // Pointer to left child
+std::shared_ptr<BinaryNode<T>> right_; // Pointer to right child
+}; // end BST
+#include "BinaryNode.cpp"
+#endif // BinaryNode_H_
 
+BinaryNode(const T& an_item, std::shared_ptr<BinaryNode<T>> left,std::shared_ptr<BinaryNode<T>> right)
+left_ptr=left;
+right_ptr=right
 
+bool BinaryNode<T>::isLeaf() const{
+return ((leaf_==nullptr) && (rihgt_==nullptr))
+}
 
+void BinaryNode<T>::setLeftChildPtr(std::shared_ptr<BianryNode<T> left_ptr)
+left=left_ptr;
 
+BST<T>::BST(const BST<T>& tree){
+ root_ptr=copyTree(tree.root_ptr_)   
+}
 
+auto BST<T>::copyTree(const std::shared_ptr<BinaryNode<T>> old_tree_root_ptr) const
+{
+std::shared_ptr<BinaryNode<T>> new_tree_ptr;
+// Copy tree nodes during a preorder traversal
+if (old_tree_root_ptr != nullptr)
+{
+// Copy node
+new_tree_ptr = std::make_shared<BinaryNode<T>>(old_tree_root_ptr
+->getItem(), nullptr, nullptr);
+new_tree_ptr->setLeftChildPtr(copyTree(old_tree_root_ptr->getLeftChildPtr()));
+new_tree_ptr->setRightChildPtr(copyTree(old_tree_root_ptr
+->getRightChildPtr()));
+} // end if
+return new_tree_ptr;
+} // end copyTre
 
+template<class T>
+BST<T>::~BST()
+{
+destroyTree(root_ptr_); // Call helper function
+} // end destructor
 
+template<class T>
+void BST<T>::destroyTree(std::shared_ptr<BinaryNode<T>> sub_tree_ptr)
+{
+if (sub_tree_ptr != nullptr)
+{
+destroyTree(sub_tree_ptr->getLeftChildPtr());
+destroyTree(sub_tree_ptr->getRightChildPtr());
+sub_tree_ptr.reset(); // same as sub_tree_ptr = nullptr for smart pointers
+} // end if
+} 
 
+template<class T>
+void BST<T>::clear()
+{
+destroyTree(root_ptr_); // Call helper method
+} // end clear
 
+template<class T>
+int BST<T>::getHeight() const
+{
+return getHeightHelper(root_ptr_);
+} // end getHeight
 
+template<class T>
+int BST<T>::getHeightHelper(std::shared_ptr<BinaryNode<T>> sub_tree_ptr) const
+{
+if (sub_tree_ptr == nullptr)
+return 0;
+else
+return 1 + std::max(getHeightHelper(sub_tree_ptr->getLeftChildPtr()),
+getHeightHelper(sub_tree_ptr->getRightChildPtr()));
+} // end getHeightHelpe
 
+add
+template<class T>
+void BST<T>::add(const T& new_item)
+{
+auto new_node_ptr =
+std::make_shared<BinaryNode<T>>(new_item);
+placeNode(root_ptr_, new_node_ptr);
+} // end add
 
+template<class T>
+auto BST<T>::placeNode(std::shared_ptr<BinaryNode<T>> subtree_ptr,
+std::shared_ptr<BinaryNode<T>> new_node_ptr)
+{
+if (subtree_ptr == nullptr)
+return new_node_ptr; //base case
+else
+{
+if (subtree_ptr->getItem() > new_node_ptr->getItem())
+subtree_ptr->setLeftChildPtr(placeNode(subtree_ptr->getLeftChildPtr(),
+new_node_ptr));
+else
+subtree_ptr->setRightChildPtr(placeNode(subtree_ptr->getRightChildPtr(),
+new_node_ptr));
+return subtree_ptr;
+} // end if
+} // end placeNode
 
+template<class T>
+bool BST<T>::remove(const T& target)
+{
+bool is_successful = false;
+// call may change is_successful
+root_ptr_ = removeValue(root_ptr_, target, is_successful);
+return is_successful;
+} // end remove
 
+template<class T>
+auto BST<T>::removeValue(std::shared_ptr<BinaryNode<T>>
+subtree_ptr, const T target, bool& success)
+{
+if (subtree_ptr == nullptr)
+{
+// Not found here
+success = false;
+return subtree_ptr;
+}
+if (subtree_ptr->getItem() == target)
+{
+// Item is in the root of this subtree
+subtree_ptr = removeNode(subtree_ptr);
+success = true;
+return subtree_ptr;
 
+else
+{
+if (subtree_ptr->getItem() > target)
+{
+// Search the left subtree
+subtree_ptr->setLeftChildPtr(removeValue(subtree_ptr
+->getLeftChildPtr(), target, success));
+}
+else
+{
+// Search the right subtree
+subtree_ptr->setRightChildPtr(removeValue(subtree_ptr
+->getRightChildPtr(), target, success));
+}
+return subtree_ptr;
+} // end if
+} // end removeValue
 
+template<class T>
+auto BST<T>::removeNode(std::shared_ptr<BinaryNode<T>> node_ptr)
+{
+// Case 1) Node is a leaf - it is deleted
+if (node_ptr->isLeaf())
+{
+node_ptr.reset();
+return node_ptr; // delete and return nullptr
+}
+// Case 2) Node has one child - parent adopts child
+else if (node_ptr->getLeftChildPtr() == nullptr) // Has rightChild only
+{
+return node_ptr->getRightChildPtr();
+}
+else if (node_ptr->getRightChildPtr() == nullptr) // Has left child only
+{
+return node_ptr->getLeftChildPtr();
+}
+// Case 3) Node has two children:
+else
+{
+T new_node_value;
+node_ptr->setRightChildPtr(removeLeftmostNode(node_ptr->getRightChildPtr(),
+new_node_value));
+node_ptr->setItem(new_node_value);
+return node_ptr;
+} // end if
+} // end removeNode
 
+template<class T>
+auto BST<T>::removeLeftmostNode(std::shared_ptr<BinaryNode<T>>
+nodePtr, T& inorderSuccessor)
+{
+if (nodePtr->getLeftChildPtr() == nullptr)
+{
+inorderSuccessor = nodePtr->getItem();
+return removeNode(nodePtr);
+}
+else
+{
+nodePtr->setLeftChildPtr(removeLeftmostNode(nodePtr->getLeftChildPtr(),
+inorderSuccessor));
+return nodePtr;
+} // end if
+} // end removeLeftmostNode
+
+template<class T>
+void BST<T>::inorder(Visitor<T>& visit,
+std::shared_ptr<BinaryNode<T>> tree_ptr) const
+{
+if (tree_ptr != nullptr)
+{
+inorder(visit, tree_ptr->getLeftChildPtr());
+T the_item = tree_ptr->getItem();
+visit(the_item);
+inorder(visit, tree_ptr->getRightChildPtr());
+} // end if
+} // end inorder
+
+template<class T>
+void BST<T>::inorder(Visitor<T>& visit) const
+{
+std::stack<T> node_stack;
+std::shared_ptr<BinaryNode<T>> current_ptr = root_ptr_;
+bool done = false;
+while(!done)
+{
+if(current_ptr != nullptr)
+{
+node_stack.push(current_ptr);
+//traverse left subtree
+current_ptr = current_ptr->getLeftChildPtr();
+}
 
 
 
